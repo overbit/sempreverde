@@ -15,7 +15,6 @@ GPIO.setup(PUMP_RELAY_GPIO, GPIO.OUT, initial=GPIO.HIGH)
 # GPIO.output(PUMP_RELAY_GPIO, GPIO.LOW) # switch off 
 
 def switch_pump(value):
-	return
 	if value == "ON":
 		print ("Switch pump on")
 		GPIO.output(PUMP_RELAY_GPIO, GPIO.LOW) 
