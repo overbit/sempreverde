@@ -3,7 +3,7 @@ import time
 
 # Define the GPIO pin that we have our digital output from our sensor connected to
 MOISTURE_SENSOR_GPIO = 17
-PUMP_RELAY_GPIO = 27
+PUMP_RELAY_GPIO = 22
 
 # Set our GPIO numbering to BCM
 GPIO.setmode(GPIO.BCM)
