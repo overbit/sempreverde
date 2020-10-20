@@ -13,8 +13,10 @@ class Reading:
         self.percentage = round((1- voltage/3.3) * 100, 2)
 
 class Sensor:
-    @staticmethod
-    def Start():
+    def __init__(self, event):
+        self.new_reading_event = event
+
+    def Start(self, event):
         print("Starting sensor...")
 
         # create the spi bus
@@ -30,7 +32,8 @@ class Sensor:
         channel = AnalogIn(mcp, MCP.P3)
 
         reading =  Reading(value=channel.value, voltage=channel.voltage)
-        SensorRepository.SaveReading(percentage=reading.percentage, value=reading.value, voltage=reading.voltage)
+        self.new_reading_event.notify(reading.value, reading.voltage, reading.percentage)
+        # SensorRepository.SaveReading(percentage=reading.percentage, value=reading.value, voltage=reading.voltage)
 
         while True:
             avg =  [0]*2
@@ -44,7 +47,8 @@ class Sensor:
             avgVoltage = avg[1] / 50
 
             reading =  Reading(value=avgValue, voltage=avgVoltage)
-            SensorRepository.SaveReading(percentage=reading.percentage, value=reading.value, voltage=reading.voltage)
+            self.new_reading_event.notify(reading.value, reading.voltage, reading.percentage)
+            # SensorRepository.SaveReading(percentage=reading.percentage, value=reading.value, voltage=reading.voltage)
 
 if __name__ == '__main__':
     Sensor.Start()

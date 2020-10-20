@@ -15,13 +15,14 @@ class SensorReading(BaseModel):
     voltage = DoubleField()
     created_date = DateTimeField(default=datetime.datetime.now)
 
-    # @staticmethod
-    # def getPercentage(val):
-    #     return (1 - val/3.3) * 100
+db.connect()
+db.create_tables([SensorReading]) 
+db.close()
+
 
 class SensorRepository():
     def SaveReading(self, value, voltage, percentage):
-        print(f"Saving reading: {percentage}  - {value} - {voltage} ")
+        print(f"Reading: {percentage}%  | {voltage:4.2f}V ")
         db.connect()
         reading = SensorReading(percentage=percentage, value=value, voltage=voltage)
         reading.save()
@@ -33,6 +34,3 @@ class SensorRepository():
         db.close()
         event += self.SaveReading
 
-db.connect()
-db.create_tables([SensorReading]) 
-db.close()
