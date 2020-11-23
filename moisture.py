@@ -10,7 +10,7 @@ class Reading:
     def __init__(self, value, voltage):
         self.value = value
         self.voltage = voltage
-        self.percentage = round((1- voltage/3.3) * 100, 2)
+        self.percentage = round(voltage/3.3 * 100, 2)
 
 class Sensor:
     def __init__(self, event):
